@@ -4,7 +4,7 @@ A WS2812B LED ring, driven by an ESP32-C3 Super Mini, that runs a light-effect s
 
 ## Demo
 
-[demo.mp4](demo.mp4)
+![Demo](demo.gif)
 
 ## Features
 
@@ -22,7 +22,7 @@ A WS2812B LED ring, driven by an ESP32-C3 Super Mini, that runs a light-effect s
 firmware/esp32_sunrise_ring/   Arduino sketch -- open esp32_sunrise_ring.ino in the Arduino IDE
 tools/led_pin_finder/          Standalone diagnostic sketch to find the ring's data pin
 hardware/CrystalRita.3mf       3D-printable enclosure/mount
-demo.mp4                       Short demo video
+demo.gif                       Short demo animation
 INSTALL.md                     Build, wiring, and flashing instructions
 BOM.md                         Full parts list
 ```
