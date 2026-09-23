@@ -2,6 +2,10 @@
 
 A WS2812B LED ring, driven by an ESP32-C3 Super Mini, that runs a light-effect schedule tied to sunrise and sunset at your location. Provisioned over a Wi-Fi captive portal, updated over the air, and configurable from a small built-in web page.
 
+## Demo
+
+[demo.mp4](demo.mp4)
+
 ## Features
 
 - Wi-Fi captive portal for first-time setup (credentials stored on the device)
@@ -18,6 +22,7 @@ A WS2812B LED ring, driven by an ESP32-C3 Super Mini, that runs a light-effect s
 firmware/esp32_sunrise_ring/   Arduino sketch -- open esp32_sunrise_ring.ino in the Arduino IDE
 tools/led_pin_finder/          Standalone diagnostic sketch to find the ring's data pin
 hardware/CrystalRita.3mf       3D-printable enclosure/mount
+demo.mp4                       Short demo video
 INSTALL.md                     Build, wiring, and flashing instructions
 BOM.md                         Full parts list
 ```
