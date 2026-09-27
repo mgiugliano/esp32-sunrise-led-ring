@@ -18,3 +18,8 @@ void ledUpdate(unsigned long nowMs, int nowMinutes, int sunriseMinutes, int suns
 // selected, or "-" during a sunrise/sunset transition. For remote diagnostics (e.g. the
 // web settings page) when Serial isn't reachable.
 const char *ledCurrentPresetName();
+
+// Milliseconds since the last preset switch in the current steady phase (0 if not
+// currently in one). Lets remote diagnostics (e.g. the web page) directly observe
+// whether the rotation timer is actually advancing and using the configured interval.
+unsigned long ledMillisSinceLastSwitch();

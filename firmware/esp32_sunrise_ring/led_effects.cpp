@@ -147,6 +147,13 @@ const char *ledCurrentPresetName() {
   return PRESET_NAMES[currentPresetIndex];
 }
 
+unsigned long ledMillisSinceLastSwitch() {
+  if (lastPhaseKind == -1) {
+    return 0;
+  }
+  return millis() - lastSwitchMs;
+}
+
 static void effectSunriseTransition(float progress) {
   uint8_t r = (uint8_t)(progress * 255);
   uint8_t g = (uint8_t)(progress * 120);

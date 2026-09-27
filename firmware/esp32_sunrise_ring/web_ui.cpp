@@ -38,6 +38,7 @@ static void handleRoot() {
   html += " &middot; Sunrise: " + formatMinutes(sunriseMinutesToday());
   html += " &middot; Sunset: " + formatMinutes(sunsetMinutesToday()) + "</p>";
   html += "<p><b>Active preset: " + String(ledCurrentPresetName()) + "</b> (reload this page to see it change)</p>";
+  html += "<p>Time since last switch: " + String(ledMillisSinceLastSwitch() / 1000) + "s / configured interval: " + String(s.cycleIntervalSeconds) + "s</p>";
 
   html += "<form method='POST' action='/flash'><button type='submit'>Flash ring (test)</button></form><br>";
 
