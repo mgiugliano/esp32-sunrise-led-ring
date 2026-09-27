@@ -90,15 +90,18 @@ static void renderPreset(int preset, unsigned long nowMs, bool isNight) {
       if (periodMs == 0) {
         periodMs = 1000UL;
       }
-      float posFraction = (float)(nowMs % periodMs) / (float)periodMs; // 0..1 around the ring
-      int headIdx = (int)(posFraction * LED_COUNT);
+      // Continuous position (not an integer LED index) so the tail fades smoothly every
+      // frame, even at very slow lap speeds -- an integer-stepped head would otherwise
+      // hold the exact same pixels/brightness for periodMs/LED_COUNT seconds at a time,
+      // which at slow settings looks completely static.
+      float pos = (float)(nowMs % periodMs) / (float)periodMs * LED_COUNT; // 0..LED_COUNT
 
-      ring.clear();
-      const int tailLen = 4;
-      for (int t = 0; t < tailLen; t++) {
-        int idx = ((headIdx - t) % LED_COUNT + LED_COUNT) % LED_COUNT;
-        uint8_t val = 255 - (uint8_t)(t * (255 / tailLen));
-        ring.setPixelColor(idx, ring.gamma32(ring.ColorHSV(43000, 180, val)));
+      const float tailLen = 4.0f;
+      for (int i = 0; i < LED_COUNT; i++) {
+        // How far behind the head (in LED-spacing units) LED i is, wrapped to [0, LED_COUNT).
+        float behind = fmodf(fmodf(pos - i, LED_COUNT) + LED_COUNT, LED_COUNT);
+        uint8_t val = (behind < tailLen) ? (uint8_t)(255.0f * (1.0f - behind / tailLen)) : 0;
+        ring.setPixelColor(i, ring.gamma32(ring.ColorHSV(43000, 180, val)));
       }
       ring.show();
       break;
