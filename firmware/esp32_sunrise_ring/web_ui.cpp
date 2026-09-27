@@ -14,6 +14,24 @@ static const int NUM_PRESETS_UI = 5;
 // Names for bit positions 0-4, matching config.h's DEFAULT_*_EFFECTS_MASK comment.
 static const char *PRESET_NAMES[NUM_PRESETS_UI] = {"Off", "Dim glow", "Breathe", "Rainbow", "Comet"};
 
+static String maskToNames(uint8_t mask) {
+  String result;
+  bool first = true;
+  for (int i = 0; i < NUM_PRESETS_UI; i++) {
+    if (mask & (1 << i)) {
+      if (!first) {
+        result += ", ";
+      }
+      result += PRESET_NAMES[i];
+      first = false;
+    }
+  }
+  if (result.length() == 0) {
+    result = "(none -- ring will stay off)";
+  }
+  return result;
+}
+
 static String formatMinutes(int m) {
   if (m < 0) {
     return "--:--";
@@ -39,6 +57,7 @@ static void handleRoot() {
   html += " &middot; Sunset: " + formatMinutes(sunsetMinutesToday()) + "</p>";
   html += "<p><b>Active preset: " + String(ledCurrentPresetName()) + "</b> (reload this page to see it change)</p>";
   html += "<p>Time since last switch: " + String(ledMillisSinceLastSwitch() / 1000) + "s / configured interval: " + String(s.cycleIntervalSeconds) + "s</p>";
+  html += "<p>Enabled for Night: " + maskToNames(s.nightEffectsMask) + "<br>Enabled for Day: " + maskToNames(s.dayEffectsMask) + "</p>";
 
   html += "<form method='POST' action='/flash'><button type='submit'>Flash ring (test)</button></form><br>";
 
