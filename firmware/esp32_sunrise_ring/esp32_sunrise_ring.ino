@@ -53,7 +53,8 @@ void setup() {
   ledBootFlash(); // unconditional "I'm alive" signal, regardless of Wi-Fi state
 
   Serial.println("[wifi] trying saved credentials...");
-  wifiBegin();
+  wifiBegin(); // bounded by WIFI_CONNECT_TIMEOUT_SEC; see config.h
+  watchdogFeed(); // clear of the one blocking call in setup(); safe to relax here
 
   if (wifiIsConnected()) {
     WiFi.setSleep(true); // modem-sleep for lower average power

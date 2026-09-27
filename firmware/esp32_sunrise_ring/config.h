@@ -5,7 +5,15 @@
 #define AP_PASSWORD   ""   // "" = open network; if set, must be >= 8 characters (SoftAP requirement)
 
 // ---- Watchdog ----
-#define WDT_TIMEOUT_MS   15000UL   // reboot if loop() doesn't feed the watchdog within this long
+#define WDT_TIMEOUT_MS   20000UL   // reboot if loop() doesn't feed the watchdog within this long
+
+// ---- Wi-Fi connect timeout ----
+// How long wm.autoConnect() may block trying the saved network before giving up and
+// falling through to the captive portal. This is a *blocking* call regardless of
+// setConfigPortalBlocking(), so it MUST stay comfortably below WDT_TIMEOUT_MS -- otherwise
+// an out-of-range saved network causes the watchdog to reboot the device before the
+// portal ever gets a chance to start (it never appears, and the device reboot-loops).
+#define WIFI_CONNECT_TIMEOUT_SEC  10
 
 // ---- LED ring (AZ-Delivery WS2812B, 12 LEDs, 50 mm) ----
 // Ring pads: 5V, GND, D0 (DI, data in) -> wire to LED_PIN, D1 (DO, data out) -> leave unconnected

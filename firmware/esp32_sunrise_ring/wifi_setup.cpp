@@ -19,6 +19,10 @@ static void onSaveConfigCallback() {
 void wifiBegin() {
   wm.setConfigPortalBlocking(false);
   wm.setConfigPortalTimeout(0); // 0 = stay open indefinitely until configured
+  // Bounds the initial "try the saved network" connect attempt inside autoConnect(),
+  // which is otherwise a blocking call with no default limit -- see config.h for why
+  // this must stay well under WDT_TIMEOUT_MS.
+  wm.setConnectTimeout(WIFI_CONNECT_TIMEOUT_SEC);
   wm.setAPCallback(onAPModeCallback);
   wm.setSaveConfigCallback(onSaveConfigCallback);
 
