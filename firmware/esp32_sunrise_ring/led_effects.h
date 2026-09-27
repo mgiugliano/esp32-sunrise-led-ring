@@ -13,3 +13,8 @@ void ledOfflineBreathe(unsigned long nowMs);
 // Drives the day/night + sunrise/sunset-transition effect. Pass -1 for any argument
 // that isn't known yet (e.g. time not synced); the effect falls back safely to "night".
 void ledUpdate(unsigned long nowMs, int nowMinutes, int sunriseMinutes, int sunsetMinutes);
+
+// Name of whichever steady-phase preset (Off/Dim glow/Breathe/Rainbow/Comet) is currently
+// selected, or "-" during a sunrise/sunset transition. For remote diagnostics (e.g. the
+// web settings page) when Serial isn't reachable.
+const char *ledCurrentPresetName();

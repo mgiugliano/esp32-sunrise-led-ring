@@ -37,6 +37,7 @@ static void handleRoot() {
   html += "<p>Now: " + formatMinutes(currentMinutesOfDay());
   html += " &middot; Sunrise: " + formatMinutes(sunriseMinutesToday());
   html += " &middot; Sunset: " + formatMinutes(sunsetMinutesToday()) + "</p>";
+  html += "<p><b>Active preset: " + String(ledCurrentPresetName()) + "</b> (reload this page to see it change)</p>";
 
   html += "<form method='POST' action='/flash'><button type='submit'>Flash ring (test)</button></form><br>";
 

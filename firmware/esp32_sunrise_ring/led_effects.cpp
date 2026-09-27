@@ -140,6 +140,13 @@ static void updateStablePhase(unsigned long nowMs, bool isNight) {
   renderPreset(currentPresetIndex, nowMs, isNight);
 }
 
+const char *ledCurrentPresetName() {
+  if (lastPhaseKind == -1) {
+    return "-"; // transition / unknown-time fallback, not a steady-phase preset
+  }
+  return PRESET_NAMES[currentPresetIndex];
+}
+
 static void effectSunriseTransition(float progress) {
   uint8_t r = (uint8_t)(progress * 255);
   uint8_t g = (uint8_t)(progress * 120);
